@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<style>
+		body,
+		html {
+			margin: 0;
+			padding: 0;
+			/* font-family: 'Montserrat', sans-serif; */
+			/* overflow-x: hidden; */
+			background-color: #007bff;
+		}
+
+		.navbar {
+			background-color: #333;
+		}
+
+		.menu {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 20px 50px;
+		}
+
+		.leftmenu {
+			display: flex;
+			align-items: center;
+		}
+
+		.leftmenu .icon {
+			width: 350px;
+			height: 6vh;
+			margin-right: 10px;
+		}
+
+		.leftmenu h4 {
+			color: #fff;
+			margin: 0;
+			font-size: 24px;
+		}
+
+		.rightmenu ul {
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+		}
+
+		.rightmenu ul li {
+			display: inline-block;
+			margin-right: 20px;
+			color: #fff;
+			font-weight: 500;
+			font-size: 18px;
+		}
+
+		.rightmenu ul li a {
+			text-decoration: none;
+			color: #fff;
+			font-weight: 600;
+			font-size: 20px;
+		}
+
+
+		.container {
+			margin-top: 50px;
+		}
+
+		.container h1 {
+			font-size: 24px;
+			margin-bottom: 20px;
+			align-items: center;
+			text-align: center;
+		}
+
+		.container form {
+			display: flex;
+			flex-direction: column;
+
+		}
+
+		.container form label {
+			display: block;
+			margin-bottom: 10px;
+			text-align: left;
+		}
+
+		.container form input[type="text"],
+		.container form input[type="date"] {
+			width: 100%;
+			padding: 10px;
+			margin-bottom: 10px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+		}
+
+		.container form button {
+			padding: 10px 20px;
+			background-color: #007bff;
+			color: #fff;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+
+		.container form button:hover {
+			background-color: black;
+		}
+
+		.footer {
+			background-color: #333;
+			color: #fff;
+			text-align: center;
+			padding: 20px;
+		}
+
+
+		.card {
+			margin: 20px auto 20px auto;
+			padding: 50px;
+			height: 465px;
+			width: 40%;
+			border-radius: 30px;
+			background: #F4F0EC;
+
+		}
+
+
+		.card .container {
+			text-align: center;
+		}
+
+		.card h1 {
+			font-size: 24px;
+			margin-bottom: 20px;
+		}
+
+		.card form {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		.card label {
+			display: block;
+			margin-bottom: 10px;
+		}
+
+		.card input[type="text"],
+		.card input[type="date"] {
+			width: 100%;
+			padding: 10px;
+			margin-bottom: 10px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+		}
+
+		.card button {
+			padding: 10px 20px;
+			background-color: black;
+			/* background-color: #007bff; */
+			color: #fff;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			margin-top: 10px;
+			width: 15%;
+			text-align: center;
+		}
+
+		.card button:hover {
+			background-color: black;
+		}
+
+		.thank-you-message {
+			display: none;
+		}
+
+		#thankYouMessage:target {
+			display: block;
+		}
+
+		span {
+			color: #fff;
+		}
+	</style>
+	<script>
+		window.onload = function () {
+			document.getElementById('siteForm').onsubmit = function (event) {
+				event.preventDefault();
+
+				// Create a new FormData object and append form data
+				var formData = new FormData(this);
+
+				// Send form data to process_form.php using fetch API
+				fetch('process.php', {
+					method: 'POST',
+					body: formData
+				})
+					.then(response => response.text())
+					.then(data => {
+						// Display thank you message with organization name
+						var thankYouMessage = document.getElementById('thankYouMessage');
+						thankYouMessage.innerHTML = "<h2>Thank you for your submission " + data + "!</h2>";
+
+						window.location.hash = '#thankYouMessage';
+					})
+					.catch(error => console.error('Error:', error));
+			};
+		};
+
+	</script>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style.css">
+	<link
+		href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Open+Sans:wght@300;400;600;700&display=swap"
+		rel="stylesheet">
+	<title>Job Portal</title>
+
+</head>
+
+<body>
+	<div class="navbar">
+		<div class="menu">
+			<div class="leftmenu">
+				<a style="text-decoration:none" href="index.html"><img src="icon.png" alt="Icon" class="icon"></a>
+				<a style="text-decoration:none" href="index.html"></a>
+			</div>
+			<div class="rightmenu">
+				<ul>
+					<a href="index.html">
+                        <li id="firstlist">Home</li>
+                    </a>
+                    <a href="score.html">
+                        <li>Login</li>
+                    </a>
+                    <a href="update.html">
+                        <li id="firstlist">Jobs Search</li>
+                    </a>
+                </ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="card">
+		<div class="container">
+			<h1>Search jobs and internships:</h1>
+			<form id="siteForm" action="#thankYouMessage">
+				<label for="url">Skills, designations, companies</label>
+				<input type="text" id="url" name="url" placeholder="Enter keywords/designation/skill" required>
+				<label for="org">Experience</label>
+				<input type="text" id="org" name="organization" placeholder="Enter experience" required>
+				<label for="ip">Location</label>
+				<input type="text" id="ip" name="ip" placeholder="Enter preferred location" required>
+				<button type="submit">Submit</button>
+			</form>
+		</div>
+		<div id="thankYouMessage" class="thank-you-message">
+		</div>
+	</div>
+
+	<div class="footer">
+		<p>© SecureCorp - All Rights Reserved </p>
+	</div>
+
+
+</body>
+
+</html>
